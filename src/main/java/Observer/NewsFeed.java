@@ -1,39 +1,47 @@
 package Observer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 
 import lombok.Getter;
-import lombok.Setter;
 
-public class NewsFeed implements Subject {
+public class NewsFeed implements Subject{
+
+	private GeneralNews generalNews;
 	
-	@Getter
-	public String artical;
-	
-	public void setArtical(String artical) {
-		this.artical = artical;
-		notifyObservers();
-	}
-	
-	private HashMap<Class, Observer> subscriberMap = new HashMap<Class, Observer>();
+	private SportsResults sportsResults;
+
+	private HashSet<Observer> observerSet = new HashSet<Observer>();
 	
 	@Override
-	public void addObserver(Observer sub) {
-		subscriberMap.put(sub.getClass(), sub);
+	public void addObserver(Observer observer) {
+		observerSet.add(observer);
 	}
-	
-	@Override
-	public void removeObserver(Observer sub) {
-		subscriberMap.remove(sub.getClass());
-	
-	}
-	
 
 	@Override
-	public void notifyObservers() {
-		subscriberMap.forEach((key, value) -> value.update(artical));
+	public void removeObserver(Observer observer) {
+		observerSet.remove(observer);
+	}	
+
+	public void setGeneralNews(GeneralNews generalNews) {
+		this.generalNews = generalNews;
+		notifyObservers(StringConstants.GENERAL_NEWS);
+	}
+	
+	public void setSportsResults(SportsResults sportsResults) {
+		this.sportsResults = sportsResults;
+		notifyObservers(StringConstants.SPORTS_RESULTS);
+	}
+	
+	@Override
+	public void notifyObservers(String subjectType) {
 		
+		switch (subjectType) {
+			case StringConstants.GENERAL_NEWS : observerSet.forEach((Observer observer) -> observer.updateGeneralNews(generalNews));
+				break;
+			case StringConstants.SPORTS_RESULTS : observerSet.forEach((Observer observer) -> observer.updateSportsResults(sportsResults));
+				
+		}
+			
 	}
 	
 	

@@ -6,5 +6,5 @@ public interface Subject {
 	
 	void removeObserver(Observer sub);
 
-	void notifyObservers();
+	void notifyObservers(String subjectType);
 }

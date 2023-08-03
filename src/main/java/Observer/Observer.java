@@ -2,12 +2,12 @@ package Observer;
 
 public interface Observer {
 	
-	public void addSubject(Subject feed);
+	public void addSubject(Subject subject);
 	
-	public void removeSubject(Subject feed);
+	public void removeSubject(Subject subject);
 	
-	void update(String artical);
+	void updateGeneralNews(GeneralNews generalNews);
 	
-	void sendUpdate();
-
+	void updateSportsResults(SportsResults sportsResults);
+	
 }

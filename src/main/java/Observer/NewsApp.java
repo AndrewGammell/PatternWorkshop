@@ -6,29 +6,28 @@ public class NewsApp {
 	
 	public static void main(String[] args) {
 		
-		NewsFeed newsFeed = new NewsFeed();
-		SportsFeed sportsFeed = new SportsFeed();
+
 		
-		Observer mobileSubscriber = new MobileSubscriber();
-		Observer webSubscriber = new WebSubscriber();
+		NewsFeed newsFeed = new NewsFeed();
+		
+		Observer mobileSubscriber = new MobileObserver();
+		Observer webSubscriber = new WebObserver();
+		
+		GeneralNews generalNews1 = new GeneralNews("Florida man story","A florida man wakes up birds by sing welcome to the jungle at 3am");
+		GeneralNews generalNews2 = new GeneralNews("Florida man Attacked by birds","birds attack florida man for sing welcome to the jungle");
+		
+		SportsResults sportsResults1 = new SportsResults("Man city", (byte)1, "Man utd", (byte)1);
+		SportsResults sportsResults2 = new SportsResults("Wrexham utd", (byte)2, "Chelsea", (byte)6);
 		
 		mobileSubscriber.addSubject(newsFeed);
 		webSubscriber.addSubject(newsFeed);
-		newsFeed.setArtical("todays top story florida man wakes up birds by sing welcome to the jungle and 3am");
-
+		newsFeed.setGeneralNews(generalNews1);
+		newsFeed.setSportsResults(sportsResults1);
+		
 		mobileSubscriber.removeSubject(newsFeed);
 		webSubscriber.removeSubject(newsFeed);
-		newsFeed.setArtical("todays top birds attack florida man for sing welcome to the jungle");
-		
-		
-		mobileSubscriber.addSubject(sportsFeed);
-		webSubscriber.addSubject(sportsFeed);
-		sportsFeed.setArtical("Manchester united to sell tops player to avoid bankruptcy");
-		
-		mobileSubscriber.removeSubject(sportsFeed);
-		webSubscriber.removeSubject(sportsFeed);
-		newsFeed.setArtical("Major premier league teams caught up in match fixing scandal");
-		
+		newsFeed.setGeneralNews(generalNews2);
+		newsFeed.setSportsResults(sportsResults2);
 		
 	}		
 
